@@ -1,0 +1,45 @@
+https://www.youtube.com/watch?v=1oQn66gvwKA
+http://glados.biringa.com/
+https://pypi.org/project/crepe/
+http://ajaxsoundstudio.com/pyodoc/index.html
+https://pankajsinghrathore9599.medium.com/create-your-own-ai-assistant-like-alexa-google-assistant-siri-cortana-79b0e8722c0d
+https://www.instructables.com/GLaDOS-Potato-Replica/
+https://www.instructables.com/GLADOS-Home-Automation-voice-Recognition/
+
+NumPy: Beginner's Guide - Third Edition
+
+https://stackoverflow.com/questions/38923438/does-pydub-support-pitch-modulation
+https://stackoverflow.com/questions/43963982/python-change-pitch-of-wav-file
+
+POST https://ttsmp3.com/makemp3_new.php
+{
+	Cached: 1
+	Error: 0
+	MP3: "1fea94eb338c77f93fe8188f3c9a9934.mp3"
+	Speaker: "Kimberly"
+	Text: "English was brought to Britain in the mid 5th to 7th centuries. If you were to ask those who don't speak English whether or not it's a hard language to learn, you'd likely get more than a few who insist that it is among the hardest."
+	URL: "https://ttsmp3.com/created_mp3/1fea94eb338c77f93fe8188f3c9a9934.mp3"
+	tasktype: "direct"
+}
+
+
+GET https://ttsmp3.com/dlmp3.php?mp3=1fea94eb338c77f93fe8188f3c9a9934.mp3&location=direct
+
+
+
+pitch detection algorithms and then resynthesizing it at a different fundamental frequency
+
+capturar texto
+postar no ttsmp3.com
+baixar mp3
+converter mp3 para aif
+abrir aif
+detectar pitch
+corrigir pitch para cada trecho
+aumentar uma oitava
+dividir em zonas de silêncio
+randomizar tamanho do trecho que será modulado em pitch
+
+relação notas - frequência
+
+separar em trechos de voz - pelo confidence?
