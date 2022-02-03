@@ -5,7 +5,8 @@ import numpy as np
 def find_nearest(array, value):
     array = np.asarray(array)
     idx = (np.abs(array - value)).argmin()
-    return array[idx]
+    #return array[idx]
+    return array[idx+1]
 
 #def calc_pitch_shift(freq):
 #    semitone = find_nearest(fundamentals, freq)
@@ -26,6 +27,17 @@ def calc_pitch_shift(semitone, freq):
 def convert_numpy_to_standard(val):
     if isinstance(val, np.generic):
         return np.asscalar(val)
+
+import math
+def octave_difference(src_freq, dst_freq):
+    if src_freq == 0:
+        return 0
+    #print("s: " + src_freq)
+    #print("d: " + dst_freq)
+    ratio = dst_freq / src_freq
+    octave = math.log(ratio) / math.log(2)
+    #print(octave)
+    return -octave
 
 import re
 def tryint(s):
@@ -106,7 +118,7 @@ def pitch_modulation_chunk(chunks_path:str, proc_chunk_path:str, shift:float):
 
     # shift the pitch up by half an octave (speed will increase proportionally)
     #octaves = shift / 12.0
-    octaves = 0.2
+    octaves = shift
     #if shift != 0.0:
         #octaves = shift / 10.0
 

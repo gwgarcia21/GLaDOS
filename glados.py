@@ -62,7 +62,7 @@ def pitch_recognition(path_wav):
     plt.plot(time, frequency)
     plt.plot(time, confidence*100, 'r')
     plt.xscale("linear")
-    plt.show()
+    #plt.show()
 
     parts, time, frequency = identify_voice_parts(time, frequency, confidence)
     semitones = calc_average_frequency_voice_part(parts, time, frequency)
@@ -70,7 +70,7 @@ def pitch_recognition(path_wav):
     plt.plot(time, frequency)
     plt.plot(time, semitones, 'r')
     plt.xscale("linear")
-    plt.show()
+    #plt.show()
 
     shift = []
     i = 0
@@ -78,7 +78,8 @@ def pitch_recognition(path_wav):
         if math.isnan(f):
             sft = 0
         else:
-            sft = utils.calc_pitch_shift(semitones[i], f)/10 # dividido por 10 para teste da modulaçao
+            sft = utils.octave_difference(semitones[i], f)
+            #sft = utils.calc_pitch_shift(semitones[i], f)
         shift.append(sft)
         i = i + 1
     print(shift)
@@ -202,6 +203,16 @@ def reunite_chunks():
     file_handle = combined.export("chunks/output.wav", format="wav")
     return
 
+def add_echo_effect(path):
+    s = Server().boot()
+    # stereo playback with a slight shift between the two channels.
+    sf = SfPlayer(path, speed=[1, 1], loop=True, mul=1.0).out()
+    a = FreqShift(sf, shift=15, mul=0.6)
+    b = FreqShift(sf, shift=25, mul=0.3)#.out()
+    harm = Harmonizer(b, transpo=1.2, winsize=0.02, feedback=0.02, mul=0.5).out()
+    s.gui(locals())
+    return
+
 def main():
     #s = Server().boot()
     #s.start()
@@ -209,7 +220,7 @@ def main():
     path_wav = "download.wav"
     pitch_recognition(path_wav)
     reunite_chunks()
-
+    #add_echo_effect("chunks\output.wav")
 
     #utils.pitch_modulation()
     #utils.pitch_modulation_pydub()
