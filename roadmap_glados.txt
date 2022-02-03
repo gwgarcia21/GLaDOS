@@ -11,6 +11,8 @@ NumPy: Beginner's Guide - Third Edition
 https://stackoverflow.com/questions/38923438/does-pydub-support-pitch-modulation
 https://stackoverflow.com/questions/43963982/python-change-pitch-of-wav-file
 
+https://stackoverflow.com/questions/27357727/calcute-note-based-on-frequency
+
 POST https://ttsmp3.com/makemp3_new.php
 {
 	Cached: 1

@@ -78,7 +78,7 @@ def pitch_recognition(path_wav):
         if math.isnan(f):
             sft = 0
         else:
-            sft = utils.calc_pitch_shift(semitones[i], f)
+            sft = utils.calc_pitch_shift(semitones[i], f)/10 # dividido por 10 para teste da modulaçao
         shift.append(sft)
         i = i + 1
     print(shift)
@@ -162,7 +162,8 @@ def separate_in_chunks(path_wav, shift, step_size):
         chunks_path = os.path.join(chunks_dir, chunk_name)
         proc_chunk_name = "proc_" + chunk_name
         proc_chunk_path  = os.path.join(chunks_dir, proc_chunk_name)
-        pitch_correction(chunks_path, proc_chunk_path, shift[i])
+        #pitch_correction(chunks_path, proc_chunk_path, shift[i])
+        utils.pitch_modulation_chunk(chunks_path, proc_chunk_path, shift[i])
        
     return
 
@@ -207,11 +208,11 @@ def main():
     path_mp3 = "download.mp3"
     path_wav = "download.wav"
     pitch_recognition(path_wav)
-    #reunite_chunks()
+    reunite_chunks()
 
 
-
-
+    #utils.pitch_modulation()
+    #utils.pitch_modulation_pydub()
 
     #text = "It's been a long time. How have you been?"
     #mp3_link = request_tts(text)
