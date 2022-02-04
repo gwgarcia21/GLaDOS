@@ -6,7 +6,7 @@ def find_nearest(array, value):
     array = np.asarray(array)
     idx = (np.abs(array - value)).argmin()
     #return array[idx]
-    return array[idx+1]
+    return array[idx]
 
 #def calc_pitch_shift(freq):
 #    semitone = find_nearest(fundamentals, freq)
@@ -30,14 +30,11 @@ def convert_numpy_to_standard(val):
 
 import math
 def octave_difference(src_freq, dst_freq):
-    if src_freq == 0:
+    if dst_freq == 0:
         return 0
-    #print("s: " + src_freq)
-    #print("d: " + dst_freq)
     ratio = dst_freq / src_freq
     octave = math.log(ratio) / math.log(2)
-    #print(octave)
-    return -octave
+    return octave
 
 import re
 def tryint(s):
