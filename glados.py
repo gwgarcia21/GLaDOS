@@ -8,9 +8,11 @@ import crepe
 from scipy.io import wavfile
 import matplotlib.pyplot as plt
 import utils
+import constants
 
 def request_tts(text):
-    # Faz uma requisição GET com texto desejado para gerar o áudio
+    """ Faz uma requisição GET com texto desejado para gerar o áudio
+    """
     data = {
         'msg': text,
         'lang': 'Kimberly', 
@@ -24,7 +26,8 @@ def request_tts(text):
     return mp3_link
 
 def download_mp3(mp3_link, path):
-    # Faz o download do arquivo mp3
+    """ Faz o download do arquivo mp3
+    """
     query = {
         'mp3': mp3_link,
         'location': 'direct'
@@ -35,13 +38,15 @@ def download_mp3(mp3_link, path):
     return
 
 def convert_mp3_to_wav(path_mp3, path_wav):
-    # Converte mp3 para wav
+    """ Converte mp3 para wav
+    """
     sound = AudioSegment.from_mp3(path_mp3)
     sound.export(path_wav, format="wav")
     return
 
 def pitch_recognition(path_wav):
-    # Utiliza a biblioteca CREPE para estimar as frequências de pitch do áudio
+    """ Utiliza a biblioteca CREPE para estimar as frequências de pitch do áudio
+    """
     step_size = 10
     sr, audio = wavfile.read(path_wav)
     time, frequency, confidence, activation = crepe.predict(audio, sr, model_capacity='tiny', viterbi=True, step_size=step_size, verbose=1)
@@ -72,8 +77,9 @@ def pitch_recognition(path_wav):
     return
 
 def identify_voice_parts(time, frequency, confidence):
-    # Identifica quando a voz está sendo reproduzida, para dividir em
-    # trechos, de modo a calcular a frequência média de cada trecho
+    """ Identifica quando a voz está sendo reproduzida, para dividir em
+        trechos, de modo a calcular a frequência média de cada trecho
+    """
     parts = []
     i = 0
     idx_start = 0
@@ -92,27 +98,29 @@ def identify_voice_parts(time, frequency, confidence):
     return parts, time, frequency
 
 def calc_average_frequency_voice_part(parts, time, frequency):
-    # Calcula a frequência média de cada trecho
+    """ Calcula a frequência média de cada trecho
+    """
     semitones = [0] * len(frequency)
     for p in parts:
         length = p[1] - p[0]
         average_freq = sum(frequency[p[0]:p[1]]) / length
-        semitone = utils.find_nearest(utils.fundamentals, average_freq)
+        semitone = utils.find_nearest(constants.FUNDAMENTALS, average_freq)
         for i in range(p[0],p[1]):
             semitones[i] = semitone
     return semitones
 
 def separate_in_chunks(path_wav, shift, step_size):
-    # Separar o áudio em trechos e salvar numa pasta
+    """ Separa o áudio em trechos e salva numa pasta
+    """
     myaudio = AudioSegment.from_wav(path_wav)
     chunk_length_ms = step_size # pydub calculates in millisec
-    chunks = make_chunks(myaudio, chunk_length_ms) #Make chunks of one sec
+    chunks = make_chunks(myaudio, chunk_length_ms) # Make chunks of one sec
 
     chunks_dir = "chunks"
     if not os.path.exists(chunks_dir):
         os.mkdir(chunks_dir)
 
-    #Export all of the individual chunks as wav files
+    # Export all of the individual chunks as wav files
     for i, chunk in enumerate(chunks):
         chunk_name = "chunk{0}.wav".format(i)
         chunks_path = os.path.join(chunks_dir, chunk_name)
@@ -128,7 +136,8 @@ def separate_in_chunks(path_wav, shift, step_size):
     return
 
 def reunite_chunks():
-    # Reunir todos os chunks em um arquivo de áudio
+    """ Reune todos os chunks em um arquivo de áudio
+    """
     prefixed = [filename for filename in os.listdir('chunks') if filename.startswith("proc_")]
     prefixed = utils.sort_nicely(prefixed)
 
@@ -148,6 +157,8 @@ def reunite_chunks():
     return
 
 def add_echo_effect(path_out_wav):
+    """ Adiciona efeito de eco na voz
+    """
     s = Server().boot()
     # stereo playback with a slight shift between the two channels.
     sf = SfPlayer(path_out_wav, speed=[1, 0.999], loop=True, mul=1.0).out()
@@ -156,7 +167,8 @@ def add_echo_effect(path_out_wav):
     return
 
 def play(path_out_wav):
-    #
+    """ Toca o áudio
+    """
     s = Server().boot()
     sf = SfPlayer(path_out_wav, speed=[1, 1], loop=True, mul=1.0).out()
     s.gui(locals())
