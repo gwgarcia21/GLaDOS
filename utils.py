@@ -1,8 +1,8 @@
 import numpy as np
 import math
 import re
-import wave
 from pydub import AudioSegment
+import os
 
 def find_nearest(array, value):
     """ Encontra o valor mais próximo do desejado no array
@@ -40,15 +40,12 @@ def sort_nicely(l):
 def pitch_modulation_chunk(chunks_path:str, proc_chunk_path:str, shift:float):
     """ Modula o pitch de uma parte do áudio para eliminar entonações
     """
-    print(chunks_path)
-    print(shift)
+    #print(chunks_path)
+    #print(shift)
     sound = AudioSegment.from_file(chunks_path, format="wav")
 
     # shift the pitch up by half an octave (speed will increase proportionally)
-    #octaves = shift / 12.0
     octaves = shift
-    #if shift != 0.0:
-        #octaves = shift / 10.0
 
     new_sample_rate = int(sound.frame_rate * (2.0 ** octaves))
 
@@ -63,4 +60,7 @@ def pitch_modulation_chunk(chunks_path:str, proc_chunk_path:str, shift:float):
 
     #export / save pitch changed sound
     hipitch_sound.export(proc_chunk_path, format="wav")
+
+    os.remove(chunks_path)
+    
     return

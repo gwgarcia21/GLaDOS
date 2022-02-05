@@ -1,5 +1,3 @@
-#from distutils.command.config import config
-#from numpy import empty
 from pyo import *
 import requests
 from pydub import AudioSegment
@@ -9,6 +7,7 @@ from scipy.io import wavfile
 import matplotlib.pyplot as plt
 import utils
 import constants
+import time
 
 def request_tts(text):
     """ Faz uma requisição GET com texto desejado para gerar o áudio
@@ -124,7 +123,7 @@ def separate_in_chunks(path_wav, shift, step_size):
     for i, chunk in enumerate(chunks):
         chunk_name = "chunk{0}.wav".format(i)
         chunks_path = os.path.join(chunks_dir, chunk_name)
-        print("exporting " + chunks_path)
+        #print("exporting " + chunks_path)
         chunk.export(chunks_path, format="wav")
 
     for i, chunk in enumerate(chunks):
@@ -142,15 +141,17 @@ def reunite_chunks():
     prefixed = utils.sort_nicely(prefixed)
 
     combined = AudioSegment.from_file("chunks/proc_chunk0.wav", format="wav")
+    os.remove("chunks/proc_chunk0.wav")
 
     first = True
     for p in prefixed:
         if first == True:
             first = False
         else:
-            print(p)
+            #print(p)
             sound = AudioSegment.from_file("chunks/" + p, format="wav")
             combined = combined + sound
+            os.remove("chunks/" + p)
 
     # simple export
     file_handle = combined.export("chunks/output.wav", format="wav")
@@ -175,16 +176,18 @@ def play(path_out_wav):
     return
 
 def main():
+    start_time = time.time()
+    
     path_mp3 = "download.mp3"
     path_wav = "download.wav"
     path_out_wav = "chunks/output.wav"
 
-    download = False
+    download = True
     modulate = True
     addEchoOrJustPlay = False
 
     if download == True:
-        text = "Very impressive. Please note that any appearance of danger is merely a device to enhance your testing experience."
+        text = "Hello and, again, welcome to the Aperture Science computer-aided enrichment center. We hope your brief detention in the relaxation vault has been a pleasant one. Your specimen has been processed and we are now ready to begin the test proper."
         mp3_link = request_tts(text)
         if mp3_link != "":
             download_mp3(mp3_link, path_mp3)
@@ -195,12 +198,11 @@ def main():
     if modulate == True:
         pitch_recognition(path_wav)
         reunite_chunks()
-
+    print("--- %s seconds ---" % (time.time() - start_time))
     if addEchoOrJustPlay == False:
         add_echo_effect(path_out_wav)
     else:
         play(path_out_wav)
-        
     return
 
 if __name__ == "__main__":
