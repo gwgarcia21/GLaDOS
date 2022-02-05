@@ -1,6 +1,7 @@
 from pyo import *
 from pydub import AudioSegment
 import numpy as np
+import wave
 
 def pitch_shift_up(path_wav):
     # Eleva a frequência do áudio completo

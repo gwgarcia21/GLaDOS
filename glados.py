@@ -182,7 +182,7 @@ def main():
     path_wav = "download.wav"
     path_out_wav = "chunks/output.wav"
 
-    download = True
+    download = False
     modulate = True
     addEchoOrJustPlay = False
 

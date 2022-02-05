@@ -45,3 +45,15 @@ randomizar tamanho do trecho que será modulado em pitch
 relação notas - frequência
 
 separar em trechos de voz - pelo confidence?
+
+-- webserver
+https://www.youtube.com/watch?v=SfQd1FdcTlI
+https://websockets.readthedocs.io/en/stable/
+.
+
+-- ideias para hardware
+.led como olho da glados
+.led pisca intermitentemente para mostrar que está carregando a fala
+.led com fft para piscar de acordo com a frequência da voz enquanto fala
+
+-- 
