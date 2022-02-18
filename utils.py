@@ -11,7 +11,6 @@ def find_nearest(array, value):
     idx = (np.abs(array - value)).argmin()
     return array[idx]
 
-
 def octave_difference(src_freq, dst_freq):
     """ Calcula a diferença em oitavas (ou frações de oitava) de uma frequência para outra
     """

@@ -13,7 +13,7 @@ async def echo(websocket, path):
     connected.add(websocket)
     try:
         async for message in websocket:
-            interpreter.main(message)
+            await interpreter.main(message)
             print("Received from client: " + message)
             await websocket.send("Response: " + message)
     except websockets.exceptions.ConnectionClosed as e:
