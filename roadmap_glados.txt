@@ -5,6 +5,7 @@ http://ajaxsoundstudio.com/pyodoc/index.html
 https://pankajsinghrathore9599.medium.com/create-your-own-ai-assistant-like-alexa-google-assistant-siri-cortana-79b0e8722c0d
 https://www.instructables.com/GLaDOS-Potato-Replica/
 https://www.instructables.com/GLADOS-Home-Automation-voice-Recognition/
+https://www.home-assistant.io/docs/scripts/
 
 NumPy: Beginner's Guide - Third Edition
 

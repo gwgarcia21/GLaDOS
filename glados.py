@@ -175,6 +175,35 @@ def play(path_out_wav):
     s.gui(locals())
     return
 
+def say(text):
+    start_time = time.time()
+    
+    path_mp3 = "download.mp3"
+    path_wav = "download.wav"
+    path_out_wav = "chunks/output.wav"
+
+    download = True
+    modulate = True
+    addEchoOrJustPlay = False
+
+    if download == True:
+        mp3_link = request_tts(text)
+        if mp3_link != "":
+            download_mp3(mp3_link, path_mp3)
+            convert_mp3_to_wav(path_mp3, path_wav)
+        else:
+            print("Error")
+    
+    if modulate == True:
+        pitch_recognition(path_wav)
+        reunite_chunks()
+    print("--- %s seconds ---" % (time.time() - start_time))
+    if addEchoOrJustPlay == False:
+        add_echo_effect(path_out_wav)
+    else:
+        play(path_out_wav)
+    return
+
 def main():
     start_time = time.time()
     
