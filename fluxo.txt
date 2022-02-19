@@ -1,0 +1,50 @@
+JSON TEXT:
+{
+    "input": "text",
+    "text": "Hello, World!",
+    "type": ["say", "answer", "action", "translate?"]
+}
+
+JSON AUDIO:
+{
+    "input": "audio",
+    "audio": filestream.wav
+}
+
+\agents:
+    glados.py: "GLaDOS"
+    automation.py: "Home Automation"
+    ai.py: "AI ChatBot"
+
+---- SERVIDOR - RASPBERRY PI
+
+    { MAIN_THREAD -- Gerencia conexões e solicitações dos clientes }
+        -- Cliente conecta
+        -- Recebe JSON do Cliente
+
+        { AUX_THREAD -- Interpreta mensagem em nova Thread }
+            -- Pisca o led para indicar que está pensando
+            -- Se "input" for "audio":
+                .Realiza o Speech-to-Text para gerar o "text"
+                .Compreende a intenção do áudio pelo "text", podendo ser "answer" ou "action"
+            -- Executa uma das ações com os agentes:
+                ."say": texto->"GLaDOS"->áudio
+                ."answer": pergunta_texto->"AI"->resposta_texto->"GLaDOS"->áudio
+                ."action": texto->"AI"->intenção->ação->"Home Automation"->resposta_texto->"GLaDOS"->áudio
+            -- Executa atuadores:
+                -- Executa o áudio de saída
+                -- FFT no led para indicar que está falando
+
+        -- Responde ao cliente para sinalizar que funcionou
+        -- Desconecta o cliente
+
+---- CLIENTE
+
+
+
+
+
+
+
+
+
