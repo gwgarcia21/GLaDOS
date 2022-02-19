@@ -7,6 +7,8 @@ https://www.instructables.com/GLaDOS-Potato-Replica/
 https://www.instructables.com/GLADOS-Home-Automation-voice-Recognition/
 https://www.home-assistant.io/docs/scripts/
 
+https://techvidvan.com/tutorials/chatbot-project-python-ai/
+
 NumPy: Beginner's Guide - Third Edition
 
 https://stackoverflow.com/questions/38923438/does-pydub-support-pitch-modulation
@@ -32,18 +34,17 @@ GET https://ttsmp3.com/dlmp3.php?mp3=1fea94eb338c77f93fe8188f3c9a9934.mp3&locati
 
 pitch detection algorithms and then resynthesizing it at a different fundamental frequency
 
-capturar texto
-postar no ttsmp3.com
-baixar mp3
-converter mp3 para aif
-abrir aif
-detectar pitch
-corrigir pitch para cada trecho
-aumentar uma oitava
-dividir em zonas de silêncio
+capturar texto ok
+postar no ttsmp3.com ok
+baixar mp3 ok
+converter mp3 para wav ok
+abrir wav ok
+detectar pitch ok
+corrigir pitch para cada trecho ok
+aumentar uma oitava ok
 randomizar tamanho do trecho que será modulado em pitch
 
-relação notas - frequência
+relação notas - frequência ok
 
 separar em trechos de voz - pelo confidence?
 
@@ -57,4 +58,7 @@ https://websockets.readthedocs.io/en/stable/
 .led pisca intermitentemente para mostrar que está carregando a fala
 .led com fft para piscar de acordo com a frequência da voz enquanto fala
 
--- 
+-- codigo
+.organizar arquivos no \src
+.jogar os arquivos de áudio para a pasta \audio
+.jogar arquivos temporarios para a pasta \temp

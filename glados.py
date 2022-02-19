@@ -184,7 +184,7 @@ def say(text):
 
     download = False
     modulate = True
-    addEchoOrJustPlay = False
+    #addEchoOrJustPlay = False
 
     if download == True:
         mp3_link = request_tts(text)
@@ -198,10 +198,10 @@ def say(text):
         pitch_recognition(path_wav)
         reunite_chunks()
     print("--- %s seconds ---" % (time.time() - start_time))
-    if addEchoOrJustPlay == False:
-        add_echo_effect(path_out_wav)
-    else:
-        play(path_out_wav)
+    #if addEchoOrJustPlay == False:
+    #    add_echo_effect(path_out_wav)
+    #else:
+    #    play(path_out_wav)
     return
 
 def main():
