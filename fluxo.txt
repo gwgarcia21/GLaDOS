@@ -25,6 +25,7 @@ JSON AUDIO:
         { AUX_THREAD -- Interpreta mensagem em nova Thread }
             -- Pisca o led para indicar que está pensando
             -- Se "input" for "audio":
+                .Baixa arquivo de áudio
                 .Realiza o Speech-to-Text para gerar o "text"
                 .Compreende a intenção do áudio pelo "text", podendo ser "answer" ou "action"
             -- Executa uma das ações com os agentes:
@@ -40,8 +41,15 @@ JSON AUDIO:
 
 ---- CLIENTE
 
-
-
+    Se texto:
+        -- Digita texto e envia atráves de um botão
+    Se áudio:
+        -- Ao toque de um botão, ou se ouvir nome "GLaDOS", ativar escuta de áudio
+        -- Gravar áudio
+    -- Conecta ao servidor
+    -- Envia JSON com arquivo de áudio ou texto
+    -- Recebe "ok" do servidor
+    -- Desconecta do servidor
 
 
 

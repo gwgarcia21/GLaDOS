@@ -56,6 +56,9 @@ https://websockets.readthedocs.io/en/stable/
 -- speech-to-text
 https://cmusphinx.github.io/
 
+-- flask server
+https://flask.palletsprojects.com/en/2.0.x/patterns/fileuploads/
+
 -- ideias para hardware
 .led como olho da glados
 .led pisca intermitentemente para mostrar que está carregando a fala
